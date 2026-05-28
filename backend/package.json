@@ -7,7 +7,7 @@
     "test": "jest",
     "start": "ts-node src/main/server.ts",
     "dev": "nodemon --exec ts-node src/main/server.ts",
-    "bulid": "tsc"
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",

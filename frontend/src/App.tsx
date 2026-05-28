@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
 import Login from './pages/Login';
-import Dashboard from './pages/Dashboard'; // Crie este componente
+import Dashboard from './pages/Dashboard.tsx'; // Crie este componente
 import ProtectedRoute from './components/ProtectedRoute';
 
 const App: React.FC = () => {

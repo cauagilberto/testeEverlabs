@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+      - /app/prisma/dev.db # Persiste o banco de dados SQLite
+    environment:
+      NODE_ENV: development
+      JWT_SECRET: "sua_chave_secreta_muito_forte_aqui"
+      DATABASE_URL: "file:./prisma/dev.db"
+    command: npm run dev
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    environment:
+      VITE_API_URL: http://backend:3000 # Acessa o backend pelo nome do serviço no Docker
+    command: npm run dev

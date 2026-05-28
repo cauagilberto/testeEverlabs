@@ -6,10 +6,13 @@ interface AuthState {
     userRole: 'ADMIN' | 'USER' | null;
 }
 
+const storedToken = localStorage.getItem('token');
+const storedRole = localStorage.getItem('role') as 'ADMIN' | 'USER' | null;
+
 const initialState: AuthState = {
-    token: localStorage.getItem('token'),
-    isAuthenticated: !!localStorage.getItem('token'),
-    userRole: null, 
+    token: storedToken,
+    isAuthenticated: !!storedToken,
+    userRole: storedRole ?? null,
 };
 
 const authSlice = createSlice({
@@ -21,15 +24,18 @@ const authSlice = createSlice({
             state.isAuthenticated = true;
             state.userRole = action.payload.role;
             localStorage.setItem('token', action.payload.token);
+            localStorage.setItem('role', action.payload.role);
         },
         logout: (state) => {
             state.token = null;
             state.isAuthenticated = false;
             state.userRole = null;
             localStorage.removeItem('token');
+            localStorage.removeItem('role');
         },
         setUserRole: (state, action: PayloadAction<'ADMIN' | 'USER'>) => {
             state.userRole = action.payload;
+            localStorage.setItem('role', action.payload);
         }
     },
 });

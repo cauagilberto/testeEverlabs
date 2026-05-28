@@ -19,6 +19,7 @@ api.interceptors.request.use(config => {
 export const AuthService = {
     login: (credentials: any) => api.post('/login', credentials),
     register: (data: any) => api.post('/register', data),
+    getCurrentUser: () => api.get('/me'),
 };
 
 // Exemplo de Service de Tarefas (a ser implementado)
