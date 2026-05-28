@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  output = "../src/generated/prisma"
 }
 
 datasource db {
@@ -15,12 +16,13 @@ enum UserRole {
 }
 
 model User {
-  id       String   @id @default(uuid())
-  name     String
-  email    String   @unique
-  password String
-  role     UserRole @default(USER)
-  tasks    Task[]
+  id        Int   @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  name      String?
+  email     String   @unique
+  password  String
+  role      UserRole @default(USER)
+  tasks     Task[]
 }
 
 enum TaskStatus {
@@ -39,7 +41,7 @@ model Task {
   status      TaskStatus @default(TODO)
   tags        String?
   
-  assignedToId String
+  assignedToId Int
   assignedTo   User     @relation(fields: [assignedToId], references: [id])
   
   occurrences Occurrence[]
