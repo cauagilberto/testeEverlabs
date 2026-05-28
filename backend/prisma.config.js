@@ -12,5 +12,5 @@ module.exports = defineConfig({
     migrations: {
         path: "prisma/migrations",
     },
-    datasource: datasourceConfig,
+    
 });
