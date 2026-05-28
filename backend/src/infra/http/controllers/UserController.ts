@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { CreateUser } from '../../core/use-case/CreateUser';
-import { LoginUser } from '../../core/use-case/LoginUser';
-import { PrismaUserRepository } from '../database/PrismaUserRepository';
+import { CreateUser } from '../../../core/use-case/CreateUser';
+import { LoginUser } from '../../../core/use-case/LoginUser';
+import { PrismaUserRepository } from '../../database/PrismaUserRepo';
 
 const userRepository = new PrismaUserRepository();
 

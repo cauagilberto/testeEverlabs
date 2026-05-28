@@ -10,10 +10,10 @@ export interface UserProps {
 
 export class User {
     public readonly id?: string;
-    public name: string | undefined;
-    public email: string | undefined;
-    public password: string | undefined;
-    public role: UserRole | undefined;
+    public name!: string;
+    public email!: string;
+    public password!: string;
+    public role!: UserRole;
 
     constructor(props: UserProps) {
         Object.assign(this, props);

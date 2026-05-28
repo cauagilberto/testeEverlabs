@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { JwtService } from '../security/JwtServices';
+import { JwtService } from '../../security/JwtServices';
 
 // Extende a interface Request do Express para adicionar o campo 'user'
 declare global {

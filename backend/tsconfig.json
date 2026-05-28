@@ -4,6 +4,8 @@
     // /backend/tsconfig.json
     "target": "es2020",
     "module": "commonjs",
+    "moduleResolution": "node",
+    "baseUrl": "./",
     "rootDir": "./",
     "outDir": "./dist",
     "esModuleInterop": true,
