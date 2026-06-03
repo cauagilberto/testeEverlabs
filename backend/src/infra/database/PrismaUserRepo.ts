@@ -1,8 +1,6 @@
-import { PrismaClient } from '@prisma/client';
+import { prisma } from './prisma';
 import { IUserRepository } from '../../core/gateways/IUserRepo';
 import { User } from '../../core/entities/User';
-
-const prisma = new PrismaClient();
 
 export class PrismaUserRepository implements IUserRepository {
     async save(user: User): Promise<User> {

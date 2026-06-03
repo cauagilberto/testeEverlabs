@@ -1,9 +1,8 @@
 // /backend/prisma/schema.prisma
 
-
 generator client {
   provider = "prisma-client-js"
-  output = "../src/generated/prisma"
+  output   = "./generated/main"
 }
 
 datasource db {
@@ -16,13 +15,12 @@ enum UserRole {
 }
 
 model User {
-  id        Int   @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  name      String?
-  email     String   @unique
-  password  String
-  role      UserRole @default(USER)
-  tasks     Task[]
+  id       String   @id @default(uuid())
+  name     String
+  email    String   @unique
+  password String
+  role     UserRole @default(USER)
+  tasks    Task[]
 }
 
 enum TaskStatus {
@@ -40,10 +38,10 @@ model Task {
   priority    Int        @default(5)
   status      TaskStatus @default(TODO)
   tags        String?
-  
-  assignedToId Int
-  assignedTo   User     @relation(fields: [assignedToId], references: [id])
-  
+
+  assignedToId String
+  assignedTo   User   @relation(fields: [assignedToId], references: [id])
+
   occurrences Occurrence[]
   attachments Attachment[]
 
@@ -51,10 +49,10 @@ model Task {
 }
 
 model Occurrence {
-  id      String @id @default(uuid())
-  comment String
+  id        String   @id @default(uuid())
+  comment   String
   createdAt DateTime @default(now())
-  
+
   taskId String
   task   Task   @relation(fields: [taskId], references: [id])
 }
@@ -63,7 +61,7 @@ model Attachment {
   id       String @id @default(uuid())
   filename String
   path     String // Caminho local ou URL de upload
-  
+
   taskId String
   task   Task   @relation(fields: [taskId], references: [id])
 }
