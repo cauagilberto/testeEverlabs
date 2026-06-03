@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { AuthService } from '../services/api';
 import { loginSuccess } from '../redux/authSlice';
+import { Link } from 'react-router-dom';
 
 const Login: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -44,6 +45,7 @@ const Login: React.FC = () => {
                 required 
             />
             <button type="submit">Entrar</button>
+            <p>Não tem conta? <Link to="/register">Cadastre-se</Link></p>
         </form>
     );
 };

@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import Dashboard from './pages/Dashboard.tsx'; // Crie este componente
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -14,6 +15,7 @@ const App: React.FC = () => {
             <Router>
                 <Routes>
                     <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
                     <Route path="/unauthorized" element={<div>Acesso Negado</div>} />
                     
                     {/* Rotas Protegidas */}

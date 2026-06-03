@@ -14,7 +14,9 @@ services:
     environment:
       NODE_ENV: development
       JWT_SECRET: "cauanzin23."
-      DATABASE_URL: "https://icbqadwcizpyrztbjskv.supabase.co"
+    # Load environment variables (including proper DATABASE_URL) from backend/.env
+    env_file:
+      - ./backend/.env
     command: npm run dev
 
   frontend:
