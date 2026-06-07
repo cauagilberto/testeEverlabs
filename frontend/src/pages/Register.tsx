@@ -49,7 +49,7 @@ const Register: React.FC = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
             />
-            <button type="submit">Cadastrar</button>
+            <button type="submit" onClick='PrismaUserRepository.save()'>Cadastrar</button>
         </form>
     );
 };
