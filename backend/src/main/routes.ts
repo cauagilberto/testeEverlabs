@@ -3,9 +3,11 @@
 import { Router } from 'express';
 import { UserController } from '../infra/http/controllers/UserController';
 import { AuthMiddleware, AdminMiddleware } from '../infra/http/middleware/AuthMiddleware';
+import { PrismaClient} from '@prisma/client';
 
 const router = Router();
 const userController = new UserController();
+const prisma = new PrismaClient();
 
 // Rotas Públicas
 router.post('/login', userController.login);

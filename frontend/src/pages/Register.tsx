@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthService } from '../services/api';
+import PrismaUserRepository from '..src/infra/database/PrismaUserRepo';
+
 
 const Register: React.FC = () => {
     const [name, setName] = useState('');
@@ -49,7 +51,7 @@ const Register: React.FC = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
             />
-            <button type="submit" onClick='PrismaUserRepository.save()'>Cadastrar</button>
+            <button type="submit" onClick={PrismaUserRepository.save()}>Cadastrar</button>
         </form>
     );
 };
