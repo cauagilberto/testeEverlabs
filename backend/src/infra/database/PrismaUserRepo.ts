@@ -1,9 +1,10 @@
 import { prisma } from './prisma';
 import { IUserRepository } from '../../core/gateways/IUserRepo';
 import { User } from '../../core/entities/User';
+import { PrismaClient } from 'prisma/generated/main/edge';
 
 export class PrismaUserRepository implements IUserRepository {
-    
+    constructor(private prisma: PrismaClient) {}
     async save(user: User): Promise<User> {
         try {
             if (!user?.email || typeof user.email !== 'string') {
@@ -32,20 +33,13 @@ export class PrismaUserRepository implements IUserRepository {
 
     async findByEmail(email: string): Promise<User | null> {
         try {
-            if (!email || typeof email !== 'string') {
-                throw new Error('Invalid email provided to findByEmail()');
-            }
-            if (!(prisma as any).user) {
-                throw new Error('Prisma client model `user` is not available on the client instance');
-            }
-
-            const prismaUser = await prisma.user.findUnique({ where: { email } });
-            return prismaUser ? new User(prismaUser) : null;
-        } catch (err: any) {
-            console.error('PrismaUserRepository.findByEmail error:', err?.message || err, { email });
-            throw err;
+            const prismaUser = await this.prisma.user.findUnique({ where: { email } });
+            return prismaUser;
+        } catch (error){
+            throw new Error(`Failed to find user with email ${email}: error`);
         }
     }
+    
 
     async findById(id: string): Promise<User | null> {
         try {
@@ -64,4 +58,4 @@ export class PrismaUserRepository implements IUserRepository {
     }
 }
 
-export default new PrismaUserRepository();
+export default PrismaUserRepository;

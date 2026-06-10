@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthService } from '../services/api';
-import PrismaUserRepository from '..src/infra/database/PrismaUserRepo';
+import { ApiService } from '../services/api';
 
 
 const Register: React.FC = () => {
@@ -16,8 +15,15 @@ const Register: React.FC = () => {
         e.preventDefault();
         setError('');
         setSuccess('');
+
         try {
-            const response = await AuthService.register({ name, email, password });
+            await ApiService.validateEmail(email);
+        }catch (err: any) {
+            return setError(err.response?.data?.error || 'Email já está em uso.');
+         }
+
+        try {
+            await ApiService.register({ name, email, password });
             setSuccess('Usuário criado com sucesso. Você pode fazer login agora.');
             setTimeout(() => navigate('/login'), 1500);
         } catch (err: any) {
@@ -51,7 +57,7 @@ const Register: React.FC = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
             />
-            <button type="submit" onClick={PrismaUserRepository.save()}>Cadastrar</button>
+            <button type="submit" onClick={Register}>Cadastrar</button>
         </form>
     );
 };

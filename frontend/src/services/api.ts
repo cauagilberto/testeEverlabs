@@ -27,3 +27,27 @@ export const TaskService = {
     getAll: () => api.get('/tasks'),
     // ...
 };
+
+export const ApiService = {
+    register: (user: {name: string, email: string, password: string}) =>
+        fetch('/api/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(user),
+        }).then(res => res.json()).catch(err => Promise.reject(err)),
+
+    validateEmail: (email: string) =>
+        fetch(`/api/validate-email/${email}`,
+            {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Email já está em uso.');
+            }
+            return res.json();
+        }).catch(err => Promise.reject(err))
+}
+
+export default ApiService;

@@ -2,8 +2,11 @@ import { Request, Response } from 'express';
 import { CreateUser } from '../../../core/use-case/CreateUser';
 import { LoginUser } from '../../../core/use-case/LoginUser';
 import { PrismaUserRepository } from '../../database/PrismaUserRepo';
+import { prisma } from '../../database/prisma';
 
-const userRepository = new PrismaUserRepository();
+
+
+const userRepository = new PrismaUserRepository(prisma);
 
 export class UserController {
     async register(req: Request, res: Response) {
